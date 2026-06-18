@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-config-demo
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: nginx-config-demo
+  
+  template:
+    metadata:
+      labels:
+        app: nginx-config-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - name: nginx-config-demo-web-index
+          mountPath: /usr/share/nginx/html/index.html
+          subPath: index.html
+          
+      volumes:
+      - name: nginx-config-demo-web-index
+        configMap:
+          name: nginx-config-demo-web-index
