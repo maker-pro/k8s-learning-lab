@@ -516,7 +516,18 @@ ImagePullBackOff
 
 ---
 
-如果创建pod的时候镜像一直拉去不下来，需要在`/etc/containerd/certs.d/`创建一个对应的文件夹（比如我的harbor 地址是：http://111.229.217.116:30887/， 就需要创建一个111.229.217.116:30887文件夹），并在创建的文件夹下创建一个新的文件hosts.toml
+如果创建pod的时候镜像一直拉去不下来，
+
+第一步、需要确定/etc/containerd/config.toml 中的config_path的值
+如果是`config_path = ""`，就要改成 `config_path = "/etc/containerd/certs.d"`
+
+然后重启`containerd`、`kubelet`
+```shell
+systemctl restart containerd
+systemctl restart kubelet
+```
+
+第二步、需要在`/etc/containerd/certs.d/`创建一个对应的文件夹（比如我的harbor 地址是：http://111.229.217.116:30887/， 就需要创建一个111.229.217.116:30887文件夹），并在创建的文件夹下创建一个新的文件hosts.toml
 
 hosts.toml内容:
 ```toml
