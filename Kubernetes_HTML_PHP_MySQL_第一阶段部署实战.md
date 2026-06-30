@@ -382,6 +382,22 @@ spec:
         image: 111.229.217.116:30887/store-demo-php/store-demo-php:1.0
         ports:
         - containerPort: 9000
+
+        env:
+        - name: DB_HOST
+          value: mysql-service
+    
+        - name: DB_PORT
+          value: "3306"
+    
+        - name: DB_DATABASE
+          value: store
+    
+        - name: DB_USERNAME
+          value: root
+    
+        - name: DB_PASSWORD
+          value: "123456"
 ---
 apiVersion: v1
 kind: Service
